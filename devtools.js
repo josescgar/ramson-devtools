@@ -1,0 +1,1 @@
+chrome.devtools.panels.create('Ramson', '', 'panel.html', function (panel) {});
