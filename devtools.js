@@ -1,1 +1,1 @@
-chrome.devtools.panels.create('Ramson', '', 'panel.html', function (panel) {});
+chrome.devtools.panels.create('Ramson', '', 'src/js/components/main.html', function (panel) {});

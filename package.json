@@ -1,0 +1,11 @@
+{
+  "name": "ramson-devtools",
+  "version": "0.1.0",
+  "description": "Ramson Websocket Debugger",
+  "main": "devtools.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+  }
+}
