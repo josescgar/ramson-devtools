@@ -11,6 +11,11 @@ script.onload = function() {
 
 (document.head || document.documentElement).appendChild(script);
 
+/**
+ * Websocket activity will be forwarded from the injected script as events.
+ * We need to forward the data in the event to the background page, which will
+ * in turn forward it to the right devtools page. 
+ */
 window.addEventListener('ramson-ws-activity', function (event) {
-    console.debug(event.detail);
+    chrome.runtime.sendMessage(event.detail);
 });

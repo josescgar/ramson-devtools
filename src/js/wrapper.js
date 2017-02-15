@@ -4,19 +4,23 @@ WebSocket = function (...args) {
 
     const originalSendFunc = ws.send;
     ws.send = function (data) {
-        sendToContentScript(data);
+        sendToContentScript(args[0], 'send', data);
         originalSendFunc.apply(this, arguments);
     };
 
     ws.addEventListener('message', function (message) {
-        sendToContentScript(message.data);
+        sendToContentScript(args[0], 'receive', message.data);
     });
 
     return ws;
 }
 
-function sendToContentScript(data) {
+function sendToContentScript(source, type, data) {
     window.dispatchEvent(new CustomEvent('ramson-ws-activity', {
-        detail: data
+        detail: {
+            source: source,
+            type: type,
+            data: data
+        }
     }));
 }

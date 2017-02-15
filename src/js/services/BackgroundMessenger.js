@@ -1,11 +1,12 @@
 export const Messages = {
+    INIT: 'init-conn',
     INJECT_SCRIPT: 'inject-script'
 };
 
 class BackgroundMessengerService {
 
     constructor() {
-        this.backgroundCallbacks = [];
+        this.devtoolsCallbacks = [];
     }
 
     connectToBackground() {
@@ -14,13 +15,15 @@ class BackgroundMessengerService {
         });
 
         this.backgroundConnection.onMessage.addListener(message => {
-            this.backgroundCallbacks.forEach(cb => cb(message));
+            this.devtoolsCallbacks.forEach(cb => cb(message));
         });
+
+        this.sendToBackgroundFromDevtools(Messages.INIT);
 
         console.debug("Background page connection established");
     }
 
-    sendToBackground(type, payload) {
+    sendToBackgroundFromDevtools(type, payload) {
         this.backgroundConnection.postMessage({
             tabId: chrome.devtools.inspectedWindow.tabId,
             type: type,
@@ -28,9 +31,11 @@ class BackgroundMessengerService {
         });
     }
 
-    onBackgroundMessage(callback) {
-        this.backgroundCallbacks.push(callback);
+    onMessageFromBackground(callback) {
+        this.devtoolsCallbacks.push(callback);
     }
+
+
 }
 
 export let BackgroundMessenger = new BackgroundMessengerService();
