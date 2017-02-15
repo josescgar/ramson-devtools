@@ -10,3 +10,7 @@ script.onload = function() {
 };
 
 (document.head || document.documentElement).appendChild(script);
+
+window.addEventListener('ramson-ws-activity', function (event) {
+    console.debug(event.detail);
+});
