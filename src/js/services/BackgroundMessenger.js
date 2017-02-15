@@ -6,19 +6,26 @@ class BackgroundMessengerService {
 
     constructor() {
         this.backgroundCallbacks = [];
+    }
+
+    connectToBackground() {
         this.backgroundConnection = chrome.runtime.connect({
             name: 'ramson-devtools-page'
         });
 
         this.backgroundConnection.onMessage.addListener(message => {
-           this.backgroundCallbacks.forEach(cb => cb(message));
+            this.backgroundCallbacks.forEach(cb => cb(message));
         });
 
-        console.debug("Background messenger initialized!");
+        console.debug("Background page connection established");
     }
 
     sendToBackground(type, payload) {
-        chrome.runtime.sendMessage({tabId: chrome.devtools.inspectedWindow.tabId, type: type, payload: payload});
+        this.backgroundConnection.postMessage({
+            tabId: chrome.devtools.inspectedWindow.tabId,
+            type: type,
+            payload: payload
+        });
     }
 
     onBackgroundMessage(callback) {

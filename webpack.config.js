@@ -5,7 +5,8 @@ module.exports = {
         devtools: './src/js/devtools.js',
         background: './src/js/background.js',
         content: './src/js/content.js',
-        main: './src/js/components/main.js'
+        main: './src/js/components/main.js',
+        wrapper: './src/js/wrapper.js'
     },
     output: {
         filename: 'dist/[name].js'

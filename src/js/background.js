@@ -1,4 +1,4 @@
-import { Messages } from './services/backgroundMessenger';
+import { Messages } from './services/BackgroundMessenger';
 
 chrome.runtime.onConnect.addListener(devToolsConnection => {
 

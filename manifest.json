@@ -9,5 +9,21 @@
       "background.js"
     ]
   },
-  "permissions": ["tabs"]
+  "content_scripts": [
+    {
+      "matches": [
+        "http://*/*",
+        "https://*/*"
+      ],
+      "js": ["content.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    }
+  ],
+  "web_accessible_resources": ["wrapper.js"],
+  "permissions": [
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ]
 }
