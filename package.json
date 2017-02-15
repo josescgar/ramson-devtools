@@ -4,8 +4,15 @@
   "description": "Ramson Websocket Debugger",
   "main": "devtools.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/webpack",
+    "watch": "./node_modules/.bin/webpack --watch"
   },
   "devDependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.0",
+    "babel-preset-es2015": "^6.22.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "webpack": "^2.2.1"
   }
 }

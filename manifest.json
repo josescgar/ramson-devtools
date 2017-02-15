@@ -3,10 +3,10 @@
   "name": "Ramson Devtools",
   "description": "Devtools extension for debugging websocket connections with Ramson",
   "version": "0.1",
-  "devtools_page": "devtools.html",
+  "devtools_page": "src/js/devtools.html",
   "background": {
     "scripts": [
-      "src/js/background.js"
+      "background.js"
     ]
   },
   "permissions": ["tabs"]
