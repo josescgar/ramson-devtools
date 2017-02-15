@@ -1,4 +1,4 @@
-import { BackgroundMessenger } from '../services/BackgroundMessenger';
+import { BackgroundMessenger } from './BackgroundMessenger';
 
 BackgroundMessenger.connectToBackground();
 BackgroundMessenger.onMessageFromBackground(message => {

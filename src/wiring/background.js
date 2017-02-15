@@ -1,5 +1,3 @@
-import { Messages } from './services/BackgroundMessenger';
-
 const connections = {};
 
 /**
@@ -11,12 +9,9 @@ chrome.runtime.onConnect.addListener(devToolsConnection => {
 
     let backgroundListener = (message, sender, sendResponse) => {
         switch (message.type) {
-            case Messages.INIT:
+            case 'init-conn':
                 listeningToTabId = message.tabId;
                 connections[listeningToTabId] = devToolsConnection;
-                break;
-            case Messages.INJECT_SCRIPT:
-                injectScript(message.tabId, message.payload.file);
                 break;
         }
     };
@@ -37,9 +32,3 @@ chrome.runtime.onMessage.addListener((request, sender) => {
         connections[sender.tab.id].postMessage(request);
     }
 });
-
-function injectScript(tabId, fileName) {
-    chrome.tabs.executeScript(tabId, {
-       file: fileName
-    });
-}

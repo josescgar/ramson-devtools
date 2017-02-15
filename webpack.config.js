@@ -2,11 +2,11 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
-        devtools: './src/js/devtools.js',
-        background: './src/js/background.js',
-        content: './src/js/content.js',
-        main: './src/js/components/main.js',
-        wrapper: './src/js/wrapper.js'
+        devtools: './src/wiring/devtools.js',
+        background: './src/wiring/background.js',
+        content: './src/wiring/content.js',
+        wrapper: './src/wiring/wrapper.js',
+        app: './src/app/app.js'
     },
     output: {
         filename: 'dist/[name].js'
@@ -25,7 +25,8 @@ module.exports = {
     plugins: [
         new CopyWebpackPlugin([
             {from: 'manifest.json', to: 'dist'},
-            {from: 'src/js/**/*.html', to: 'dist'}
+            {from: 'src/wiring/*.html', to: 'dist', flatten: true},
+            {from: 'src/app/app.html', to: 'dist', flatten: true}
         ])
     ]
 };
