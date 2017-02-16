@@ -9,7 +9,8 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            sources: []
+            sources: [],
+            messages: []
         };
     }
 
@@ -21,22 +22,30 @@ class App extends React.Component {
 
     render() {
         let sources = this.state.sources.map((source, index) => <li key={index}>{source}</li>);
+        let messages = this.state.messages.map((message, index) => <li key={index}>{message.type}: {message.data}</li>);
         return (
             <div>
                 <ul>{sources}</ul>
                 <FilterBar/>
+                <ul>{messages}</ul>
             </div>
         );
     }
 
     onPageMessage(message) {
+        let newState = {};
+
         //Add to sources
         if (this.state.sources.indexOf(message.source) === -1) {
             this.state.sources.push(message.source);
-            this.setState({
-                sources: this.state.sources
-            });
+            newState.sources = this.state.sources;
         }
+
+        //Add to transactions
+        this.state.messages.push(message);
+        newState.messages = this.state.messages;
+
+        this.setState(newState);
     }
 }
 
