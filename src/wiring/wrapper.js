@@ -13,7 +13,7 @@ WebSocket = function (...args) {
     });
 
     return ws;
-}
+};
 
 function sendToContentScript(source, type, data) {
     window.dispatchEvent(new CustomEvent('ramson-ws-activity', {

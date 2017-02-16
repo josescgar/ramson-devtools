@@ -3,7 +3,7 @@ export const Messages = {
     INJECT_SCRIPT: 'inject-script'
 };
 
-class BackgroundMessengerService {
+class BackgroundMessenger {
 
     constructor() {
         this.devtoolsCallbacks = [];
@@ -38,4 +38,4 @@ class BackgroundMessengerService {
 
 }
 
-export let BackgroundMessenger = new BackgroundMessengerService();
+export default new BackgroundMessenger();
