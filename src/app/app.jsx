@@ -8,7 +8,10 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
+
         this.onSourceSelected = this.onSourceSelected.bind(this);
+        this.onPageMessage = this.onPageMessage.bind(this);
+
         this.state = {
             messages: {},
             selectedSource: null
@@ -18,7 +21,7 @@ class App extends React.Component {
     componentDidMount() {
         BackgroundMessenger.connectToBackground();
         BackgroundMessenger.sendToBackgroundFromDevtools(Messages.INIT);
-        BackgroundMessenger.onMessageFromBackground(message => this.onPageMessage(message));
+        BackgroundMessenger.onMessageFromBackground(this.onPageMessage);
     }
 
     render() {
