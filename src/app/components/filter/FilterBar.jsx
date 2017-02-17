@@ -4,6 +4,7 @@ export default class FilterBar extends React.Component {
     constructor(props) {
         super(props);
         this.handleSourceChange = this.handleSourceChange.bind(this);
+        this.handleGroupingChange = this.handleGroupingChange.bind(this);
     }
 
     render() {
@@ -12,14 +13,23 @@ export default class FilterBar extends React.Component {
 
         return (
             <form>
-                <select value={this.props.selectedSource} onChange={this.handleSourceChange}>
+                <select value={this.props.sources.indexOf(this.props.filters.selectedSource)} onChange={this.handleSourceChange}>
                     {sources}
                 </select>
+                <label>
+                    <input type="checkbox" checked={this.props.filters.group} onChange={this.handleGroupingChange}/>
+                    Group request/response
+                </label>
             </form>
         );
     }
 
     handleSourceChange(event) {
-        this.props.onSourceSelected(event.target.value >= 0 ? this.props.sources[event.target.value] : null);
+        let source = event.target.value >= 0 ? this.props.sources[event.target.value] : null;
+        this.props.onFiltersChange({selectedSource: source});
+    }
+
+    handleGroupingChange(event) {
+        this.props.onFiltersChange({group: event.target.checked});
     }
 }
