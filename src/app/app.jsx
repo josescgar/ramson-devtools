@@ -8,9 +8,10 @@ class App extends React.Component {
 
     constructor(props) {
         super(props);
+        this.onSourceSelected = this.onSourceSelected.bind(this);
         this.state = {
-            sources: [],
-            messages: []
+            messages: {},
+            selectedSource: null
         };
     }
 
@@ -21,31 +22,28 @@ class App extends React.Component {
     }
 
     render() {
-        let sources = this.state.sources.map((source, index) => <li key={index}>{source}</li>);
-        let messages = this.state.messages.map((message, index) => <li key={index}>{message.type}: {message.data}</li>);
+        let messages = this.state.messages[this.state.selectedSource] || [];
+        messages = messages.map((message, index) => <li key={index}>{message.type}: {message.data}</li>);
+
         return (
             <div>
-                <ul>{sources}</ul>
-                <FilterBar/>
+                <FilterBar sources={Object.keys(this.state.messages)} onSourceSelected={this.onSourceSelected}/>
                 <ul>{messages}</ul>
             </div>
         );
     }
 
     onPageMessage(message) {
-        let newState = {};
-
-        //Add to sources
-        if (this.state.sources.indexOf(message.source) === -1) {
-            this.state.sources.push(message.source);
-            newState.sources = this.state.sources;
+        if (!this.state.messages.hasOwnProperty(message.source)) {
+            this.state.messages[message.source] = [];
         }
 
-        //Add to transactions
-        this.state.messages.push(message);
-        newState.messages = this.state.messages;
+        this.state.messages[message.source].push(message);
+        this.setState({messages: this.state.messages});
+    }
 
-        this.setState(newState);
+    onSourceSelected(source) {
+        this.setState({selectedSource: source});
     }
 }
 
