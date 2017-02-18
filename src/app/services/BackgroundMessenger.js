@@ -1,7 +1,4 @@
-export const Messages = {
-    INIT: 'init-conn',
-    INJECT_SCRIPT: 'inject-script'
-};
+import Messages from '../constants/Messages.js';
 
 class BackgroundMessenger {
 
