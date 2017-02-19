@@ -3,6 +3,7 @@ import BackgroundMessenger from '../services/BackgroundMessenger';
 import Messages from '../constants/Messages';
 
 import FilterBar from './filter/FilterBar.jsx';
+import FramesPanel from './frames/FramesPanel.jsx';
 
 export default class App extends React.Component {
 
@@ -29,13 +30,13 @@ export default class App extends React.Component {
     }
 
     render() {
-        let messages = this.state.messages[this.state.filters.selectedSource] || [];
-        messages = messages.map((message, index) => <li key={index}>{message.type}: {message.data}</li>);
+        let frames = this.state.messages[this.state.filters.selectedSource] || [];
+        let groupings = this.state.groupings[this.state.filters.selectedSource] || {};
 
         return (
             <div>
                 <FilterBar sources={Object.keys(this.state.messages)} filters={this.state.filters} onFiltersChange={this.onFiltersChange}/>
-                <ul>{messages}</ul>
+                <FramesPanel frames={frames} groupings={groupings} showGrouped={this.state.filters.group}/>
             </div>
         );
     }
@@ -50,7 +51,10 @@ export default class App extends React.Component {
         let newLength = this.state.messages[message.source].push(message);
         
         //Try to parse payload as JSON to search for request/response id
-        this.checkForGrouping(message, newLength - 1);
+        let jsonPayload = this.checkForGrouping(message, newLength - 1);
+        if (jsonPayload) {
+            this.state.messages[message.source][newLength - 1].json = jsonPayload;
+        }
 
         this.setState({messages: this.state.messages});
     }
@@ -73,9 +77,12 @@ export default class App extends React.Component {
 
                 groupings[messageId][message.type] = streamIndex;
             }
+
+            return jsonPayload;
             
         } catch (e) {
             console.debug("Payload is not JSON", message.data);
+            return null;
         }
     }
     
