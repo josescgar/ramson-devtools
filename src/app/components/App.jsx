@@ -1,6 +1,7 @@
 import React from 'react';
 import BackgroundMessenger from '../services/BackgroundMessenger';
 import Messages from '../constants/Messages';
+import classNames from 'classnames';
 
 import FilterBar from './filter/FilterBar.jsx';
 import FramesPanel from './frames/FramesPanel.jsx';
@@ -12,10 +13,12 @@ export default class App extends React.Component {
 
         this.onFiltersChange = this.onFiltersChange.bind(this);
         this.onPageMessage = this.onPageMessage.bind(this);
+        this.onFrameSelected = this.onFrameSelected.bind(this);
 
         this.state = {
             messages: {},
             groupings: {},
+            detail: null,
             filters: {
                 selectedSource: '',
                 group: false
@@ -33,13 +36,18 @@ export default class App extends React.Component {
         let frames = this.state.messages[this.state.filters.selectedSource] || [];
         let groupings = this.state.groupings[this.state.filters.selectedSource] || {};
 
+        let framesClasses = classNames({
+            'frames': true,
+            'no-detail': !this.state.detail
+        });
+
         return (
             <div>
                 <div className="wide">
                     <FilterBar sources={Object.keys(this.state.messages)} filters={this.state.filters} onFiltersChange={this.onFiltersChange}/>
                 </div>
-                <div className="frames no-detail">
-                    <FramesPanel frames={frames} groupings={groupings} showGrouped={this.state.filters.group}/>
+                <div className={framesClasses}>
+                    <FramesPanel frames={frames} groupings={groupings} showGrouped={this.state.filters.group} onFrameSelected={this.onFrameSelected} selected={this.state.detail}/>
                 </div>
             </div>
         );
@@ -66,6 +74,10 @@ export default class App extends React.Component {
     onFiltersChange(filters) {
         let newFilters = Object.assign({}, this.state.filters, filters);
         this.setState({filters: newFilters});
+    }
+
+    onFrameSelected(message) {
+        this.setState({detail: message});
     }
 
     checkForGrouping(message, streamIndex) {

@@ -23,7 +23,6 @@ Since chrome devtools extension APIs do not offer Websocket monitoring out of th
 
 ## Third party
 - [ReactJS](https://facebook.github.io/react/)
-- [Flexbox Grid](http://flexboxgrid.com/)
 
 ## Resources
 - [manifest.json](https://developer.chrome.com/extensions/manifest)

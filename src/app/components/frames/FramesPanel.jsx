@@ -2,6 +2,8 @@ import React from 'react';
 import Messages from '../../constants/Messages';
 import Frame from './Frame.jsx';
 
+import css from './frames.less';
+
 export default class FramesPanel extends React.Component {
     render() {
         let messages = [];
@@ -10,7 +12,7 @@ export default class FramesPanel extends React.Component {
 
                 let response = null;
                 let print = true;
-                
+
                 if (this.props.showGrouped) {
 
                     let msgId = msg.json && msg.json.id || null;
@@ -29,16 +31,18 @@ export default class FramesPanel extends React.Component {
                 }
 
                 if (print) {
-                    messages.push(<Frame message={msg} key={index} response={response}/>);
+                    messages.push(<Frame message={msg} key={index} msgIndex={index} selected={this.props.selected} response={response} onFrameSelected={this.props.onFrameSelected}/>);
                 }
             });
-        
+
 
         return (
-            <ul>
-                {messages}
-            </ul>
+            <div className="panel">
+                <ul>
+                    {messages}
+                </ul>
+            </div>
         );
     }
-    
+
 }
