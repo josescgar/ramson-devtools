@@ -35,8 +35,12 @@ export default class App extends React.Component {
 
         return (
             <div>
-                <FilterBar sources={Object.keys(this.state.messages)} filters={this.state.filters} onFiltersChange={this.onFiltersChange}/>
-                <FramesPanel frames={frames} groupings={groupings} showGrouped={this.state.filters.group}/>
+                <div className="wide">
+                    <FilterBar sources={Object.keys(this.state.messages)} filters={this.state.filters} onFiltersChange={this.onFiltersChange}/>
+                </div>
+                <div className="frames no-detail">
+                    <FramesPanel frames={frames} groupings={groupings} showGrouped={this.state.filters.group}/>
+                </div>
             </div>
         );
     }
@@ -49,7 +53,7 @@ export default class App extends React.Component {
 
         //Push message to stream
         let newLength = this.state.messages[message.source].push(message);
-        
+
         //Try to parse payload as JSON to search for request/response id
         let jsonPayload = this.checkForGrouping(message, newLength - 1);
         if (jsonPayload) {
@@ -68,7 +72,7 @@ export default class App extends React.Component {
         try {
             let jsonPayload = JSON.parse(message.data);
             if (jsonPayload.hasOwnProperty(Messages.FIELD_ID)) {
-                
+
                 let messageId = jsonPayload[Messages.FIELD_ID];
                 let groupings = this.state.groupings[message.source];
                 if (!groupings.hasOwnProperty(messageId)) {
@@ -79,11 +83,11 @@ export default class App extends React.Component {
             }
 
             return jsonPayload;
-            
+
         } catch (e) {
             console.debug("Payload is not JSON", message.data);
             return null;
         }
     }
-    
+
 }

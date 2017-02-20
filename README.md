@@ -21,8 +21,13 @@ To add Ramson Devtools as an extension in developer mode
 ## Known issues
 Since chrome devtools extension APIs do not offer Websocket monitoring out of the box, this extension wraps the native Websocket definition to intercept messages sent and received. This is a rather "unstable" solution and it is know to cause issues with some sites.
 
+## Third party
+- [ReactJS](https://facebook.github.io/react/)
+- [Flexbox Grid](http://flexboxgrid.com/)
+
 ## Resources
 - [manifest.json](https://developer.chrome.com/extensions/manifest)
 - [Devtools extension docs](https://developer.chrome.com/extensions/devtools)
 - [Example devtools extesion project](https://github.com/thingsinjars/devtools-extension/blob/master/manifest.json)
 - [How to inject code in the page scope](http://stackoverflow.com/questions/9515704/building-a-chrome-extension-inject-code-in-a-page-using-a-content-script)
+- [Devtools css sources](https://chromium.googlesource.com/chromium/src/+/master/third_party/WebKit/Source/devtools/front_end/ui/)
