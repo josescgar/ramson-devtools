@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import FilterBar from './filter/FilterBar.jsx';
 import FramesPanel from './frames/FramesPanel.jsx';
+import DetailPanel from './detail/DetailPanel.jsx';
 
 export default class App extends React.Component {
 
@@ -41,6 +42,8 @@ export default class App extends React.Component {
             'no-detail': !this.state.detail
         });
 
+        let detail = this.state.detail ? <DetailPanel message={this.state.detail}/> : [];
+
         return (
             <div>
                 <div className="wide">
@@ -48,6 +51,9 @@ export default class App extends React.Component {
                 </div>
                 <div className={framesClasses}>
                     <FramesPanel frames={frames} groupings={groupings} showGrouped={this.state.filters.group} onFrameSelected={this.onFrameSelected} selected={this.state.detail}/>
+                </div>
+                <div className="detail">
+                    {detail}
                 </div>
             </div>
         );
