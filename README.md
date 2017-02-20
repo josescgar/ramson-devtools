@@ -23,6 +23,7 @@ Since chrome devtools extension APIs do not offer Websocket monitoring out of th
 
 ## Third party
 - [ReactJS](https://facebook.github.io/react/)
+- [React JSON Tree](https://github.com/alexkuz/react-json-tree)
 
 ## Resources
 - [manifest.json](https://developer.chrome.com/extensions/manifest)
