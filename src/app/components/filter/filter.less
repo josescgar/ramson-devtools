@@ -1,0 +1,31 @@
+.filter-bar {
+  @barHeight: 16px;
+
+  background-color: #f3f3f3;
+  padding: 5px;
+  align-items: center;
+  border-bottom: 1px solid #dadada;
+  clear: both;
+  height: @barHeight;
+
+  .filter-item {
+    color: #5a5a5a;
+    height: @barHeight;
+    float: left;
+  }
+
+  .divider {
+    float: left;
+    background-color: #ccc;
+    width: 1px;
+    margin: 1px 4px;
+    height: @barHeight;
+  }
+
+  select {
+    width: 180px;
+    border: 0;
+    background: transparent;
+    padding: 0 15px 0 5px;
+  }
+}

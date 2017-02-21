@@ -1,4 +1,5 @@
 import React from 'react';
+import css from './filter.less';
 
 export default class FilterBar extends React.Component {
     constructor(props) {
@@ -12,15 +13,22 @@ export default class FilterBar extends React.Component {
         sources.push(this.props.sources.map((source, index) => <option value={index} key={index}>{source}</option>));
 
         return (
-            <form>
-                <select value={this.props.sources.indexOf(this.props.filters.selectedSource)} onChange={this.handleSourceChange}>
-                    {sources}
-                </select>
-                <label>
-                    <input type="checkbox" checked={this.props.filters.group} onChange={this.handleGroupingChange}/>
-                    Group request/response
-                </label>
-            </form>
+            <div className="filter-bar">
+                <form>
+                    <div className="filter-item">
+                        <select value={this.props.sources.indexOf(this.props.filters.selectedSource)} onChange={this.handleSourceChange}>
+                            {sources}
+                        </select>
+                    </div>
+                    <div className="divider"/>
+                    <div className="filter-item">
+                        <label>
+                            <input type="checkbox" checked={this.props.filters.group} onChange={this.handleGroupingChange}/>
+                            Group request/response
+                        </label>
+                    </div>
+                </form>
+            </div>
         );
     }
 
