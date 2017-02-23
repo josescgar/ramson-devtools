@@ -38,6 +38,7 @@ export default class App extends React.Component {
         let groupings = this.state.groupings[this.state.filters.selectedSource] || {};
 
         let framesClasses = classNames({
+            'fullh': true,
             'frames': true,
             'no-detail': !this.state.detail
         });
@@ -45,15 +46,17 @@ export default class App extends React.Component {
         let detail = this.state.detail ? <DetailPanel message={this.state.detail}/> : [];
 
         return (
-            <div>
-                <div className="wide">
+            <div className="fullh">
+                <div className="top-bar">
                     <FilterBar sources={Object.keys(this.state.messages)} filters={this.state.filters} onFiltersChange={this.onFiltersChange}/>
                 </div>
-                <div className={framesClasses}>
-                    <FramesPanel frames={frames} groupings={groupings} showGrouped={this.state.filters.group} onFrameSelected={this.onFrameSelected} selected={this.state.detail}/>
-                </div>
-                <div className="detail">
-                    {detail}
+                <div className="content fullh">
+                    <div className={framesClasses}>
+                        <FramesPanel frames={frames} groupings={groupings} showGrouped={this.state.filters.group} onFrameSelected={this.onFrameSelected} selected={this.state.detail}/>
+                    </div>
+                    <div className="detail fullh">
+                        {detail}
+                    </div>
                 </div>
             </div>
         );
