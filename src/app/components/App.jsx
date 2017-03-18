@@ -118,11 +118,10 @@ export default class App extends React.Component {
             return;
         }
 
-        this.state.messages[currentSource] = [];
-        this.state.groupings[currentSource] = {};
-        if (this.state.detail && this.state.detail.source === currentSource) {
-            this.state.detail = null;
-        }
+        delete this.state.messages[currentSource];
+        delete this.state.groupings[currentSource];
+        this.state.detail = null;
+        this.state.selectedSource = '';
 
         this.setState(this.state);
     }
