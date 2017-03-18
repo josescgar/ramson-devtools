@@ -11,17 +11,32 @@
   }
 
   .frame {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    font-size: 11px;
+    color: #222;
+    line-height: 14px;
+    border-bottom: 1px solid #ccc;
+    padding: 1px;
 
-    .send {
+    a {
+      color: #222;
+      text-decoration: none;
+    }
+
+    &.send {
       background: #e2f7da;
     }
 
-    .response {
-      margin-left: 20px;
+    &.response {
+      padding-left: 20px;
+      background: none;
     }
 
-    .selected {
-      background: #3879DD;
+    &.selected {
+      background: rgb(56, 121, 217) !important;
+      a {
+        color: white;
+      }
     }
   }
 }

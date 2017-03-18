@@ -11,28 +11,25 @@ export default class FrameItem extends React.Component {
 
     render() {
 
-        let liClass = classNames({
+        let liClass = {
             frame: true,
-            grouped: this.props.response
-        });
-
-        let msgClass = classNames({
             send: this.props.message.type === Messages.TYPE_SEND,
             selected: this.props.selected === this.props.message
-        });
+        };
 
-        let response = null;
-        if (this.props.response) {
-            let responseClass = classNames({response: true, selected: this.props.selected === this.props.response});
-            response = <div className={responseClass}><a href="#" onClick={this.onResponseSelected}>{this.props.response.data}</a></div>;
+        let respClass = {
+            frame: true,
+            send: false,
+            response: true,
+            selected: this.props.selected === this.props.response
         }
 
         return (
-            <li className={liClass} key={this.props.msgIndex}>
-                <div><a href="#" className={msgClass} onClick={this.onMessageSelected}>{this.props.message.data}</a></div>
-                {response}
-            </li>
-        )
+            <span>
+                {this.generateItem(this.onMessageSelected, liClass, this.props.msgIndex, this.props.message.data)}
+                {this.generateItem(this.onResponseSelected, respClass, this.props.msgIndex + '-resp', this.props.response && this.props.response.data)}
+            </span>
+        );
     }
 
     onMessageSelected() {
@@ -41,5 +38,17 @@ export default class FrameItem extends React.Component {
 
     onResponseSelected() {
         this.props.onFrameSelected(this.props.selected === this.props.response ? null : this.props.response);
+    }
+
+    generateItem(callback, classes, key, message) {
+        if (!message) {
+            return null;
+        }
+
+        return (
+            <li className={classNames(classes)} key={key}>
+                <div><a href="#" onClick={callback}>{message}</a></div>
+            </li>
+        )
     }
 }
