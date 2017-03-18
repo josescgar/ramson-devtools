@@ -52,7 +52,12 @@ export default class App extends React.Component {
                 </div>
                 <div className="content fullh">
                     <div className={framesClasses}>
-                        <FramesPanel frames={frames} groupings={groupings} showGrouped={this.state.filters.group} onFrameSelected={this.onFrameSelected} selected={this.state.detail}/>
+                        <FramesPanel 
+                            frames={frames} 
+                            groupings={groupings} 
+                            showGrouped={this.state.filters.group} 
+                            onFrameSelected={this.onFrameSelected} 
+                            selected={this.state.detail}/>
                     </div>
                     <div className="detail fullh">
                         {detail}
