@@ -6,6 +6,7 @@ export default class FilterBar extends React.Component {
         super(props);
         this.handleSourceChange = this.handleSourceChange.bind(this);
         this.handleGroupingChange = this.handleGroupingChange.bind(this);
+        this.onClean = this.onClean.bind(this);
     }
 
     render() {
@@ -27,6 +28,9 @@ export default class FilterBar extends React.Component {
                             Group request/response
                         </label>
                     </div>
+                    <div className="filter-item right clear">
+                        <span onClick={this.onClean}>Clear</span>
+                    </div>
                 </form>
             </div>
         );
@@ -39,5 +43,9 @@ export default class FilterBar extends React.Component {
 
     handleGroupingChange(event) {
         this.props.onFiltersChange({group: event.target.checked});
+    }
+
+    onClean() {
+        this.props.onClean();
     }
 }

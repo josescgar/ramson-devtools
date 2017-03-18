@@ -15,6 +15,7 @@ export default class App extends React.Component {
         this.onFiltersChange = this.onFiltersChange.bind(this);
         this.onPageMessage = this.onPageMessage.bind(this);
         this.onFrameSelected = this.onFrameSelected.bind(this);
+        this.onCleanCurrentSource = this.onCleanCurrentSource.bind(this);
 
         this.state = {
             messages: {},
@@ -26,7 +27,6 @@ export default class App extends React.Component {
             }
         };
     }
-
     componentDidMount() {
         BackgroundMessenger.connectToBackground();
         BackgroundMessenger.sendToBackgroundFromDevtools(Messages.MESSAGE_INIT);
@@ -48,7 +48,12 @@ export default class App extends React.Component {
         return (
             <div className="fullh">
                 <div className="top-bar">
-                    <FilterBar sources={Object.keys(this.state.messages)} filters={this.state.filters} onFiltersChange={this.onFiltersChange}/>
+                    <FilterBar 
+                        sources={Object.keys(this.state.messages)} 
+                        filters={this.state.filters} 
+                        onFiltersChange={this.onFiltersChange}
+                        onClean={this.onCleanCurrentSource}
+                        />
                 </div>
                 <div className="content fullh">
                     <div className={framesClasses}>
@@ -87,11 +92,26 @@ export default class App extends React.Component {
 
     onFiltersChange(filters) {
         let newFilters = Object.assign({}, this.state.filters, filters);
-        this.setState({filters: newFilters});
+        this.setState({filters: newFilters, detail: null});
     }
 
     onFrameSelected(message) {
         this.setState({detail: message});
+    }
+
+    onCleanCurrentSource() {
+        let currentSource = this.state.filters.selectedSource;
+        if (!currentSource) {
+            return;
+        }
+
+        this.state.messages[currentSource] = [];
+        this.state.groupings[currentSource] = {};
+        if (this.state.detail && this.state.detail.source === currentSource) {
+            this.state.detail = null;
+        }
+
+        this.setState(this.state);
     }
 
     checkForGrouping(message, streamIndex) {
