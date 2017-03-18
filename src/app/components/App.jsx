@@ -2,6 +2,7 @@ import React from 'react';
 import BackgroundMessenger from '../services/BackgroundMessenger';
 import Messages from '../constants/Messages';
 import classNames from 'classnames';
+import moment from 'moment';
 
 import FilterBar from './filter/FilterBar.jsx';
 import FramesPanel from './frames/FramesPanel.jsx';
@@ -16,6 +17,7 @@ export default class App extends React.Component {
         this.onPageMessage = this.onPageMessage.bind(this);
         this.onFrameSelected = this.onFrameSelected.bind(this);
         this.onCleanCurrentSource = this.onCleanCurrentSource.bind(this);
+        this.closeDetail = this.onFrameSelected.bind(this, null);
 
         this.state = {
             messages: {},
@@ -27,6 +29,7 @@ export default class App extends React.Component {
             }
         };
     }
+
     componentDidMount() {
         BackgroundMessenger.connectToBackground();
         BackgroundMessenger.sendToBackgroundFromDevtools(Messages.MESSAGE_INIT);
@@ -43,7 +46,16 @@ export default class App extends React.Component {
             'no-detail': !this.state.detail
         });
 
-        let detail = this.state.detail ? <DetailPanel message={this.state.detail}/> : [];
+        let detail = null;
+        if (this.state.detail) {
+            detail = (
+                <div className="detail fullh">
+                    <DetailPanel 
+                        message={this.state.detail}
+                        closeDetail={this.closeDetail}/>
+                </div>
+            );
+        }
 
         return (
             <div className="fullh">
@@ -64,9 +76,7 @@ export default class App extends React.Component {
                             onFrameSelected={this.onFrameSelected} 
                             selected={this.state.detail}/>
                     </div>
-                    <div className="detail fullh">
-                        {detail}
-                    </div>
+                    {detail}
                 </div>
             </div>
         );
@@ -77,6 +87,9 @@ export default class App extends React.Component {
             this.state.messages[message.source] = [];
             this.state.groupings[message.source] = {};
         }
+
+        //Add timestamp
+        message.timestamp = moment();
 
         //Push message to stream
         let newLength = this.state.messages[message.source].push(message);

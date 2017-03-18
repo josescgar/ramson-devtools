@@ -26,8 +26,8 @@ export default class FrameItem extends React.Component {
 
         return (
             <span>
-                {this.generateItem(this.onMessageSelected, liClass, this.props.msgIndex, this.props.message.data)}
-                {this.generateItem(this.onResponseSelected, respClass, this.props.msgIndex + '-resp', this.props.response && this.props.response.data)}
+                {this.generateItem(this.onMessageSelected, liClass, this.props.msgIndex, this.props.message)}
+                {this.generateItem(this.onResponseSelected, respClass, this.props.msgIndex + '-resp', this.props.response && this.props.response)}
             </span>
         );
     }
@@ -47,7 +47,8 @@ export default class FrameItem extends React.Component {
 
         return (
             <li className={classNames(classes)} key={key} onClick={callback}>
-                <div>{message}</div>
+                <div className="data">{message.data}</div>
+                <div className="time">{message.timestamp.format('HH:mm:ss.SSS')}</div>
             </li>
         )
     }
