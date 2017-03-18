@@ -106,7 +106,6 @@ export default class App extends React.Component {
             return jsonPayload;
 
         } catch (e) {
-            console.debug("Payload is not JSON", message.data);
             return null;
         }
     }

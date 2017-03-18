@@ -46,8 +46,8 @@ export default class FrameItem extends React.Component {
         }
 
         return (
-            <li className={classNames(classes)} key={key}>
-                <div><a href="#" onClick={callback}>{message}</a></div>
+            <li className={classNames(classes)} key={key} onClick={callback}>
+                <div>{message}</div>
             </li>
         )
     }

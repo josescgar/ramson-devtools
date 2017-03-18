@@ -1,4 +1,7 @@
 .panel {
+  padding-top: 28px;
+  height: ~"calc(100% - 28px)" !important;
+
   ul {
     margin: 0;
     padding: 0;
@@ -17,11 +20,7 @@
     line-height: 14px;
     border-bottom: 1px solid #ccc;
     padding: 1px;
-
-    a {
-      color: #222;
-      text-decoration: none;
-    }
+    cursor: pointer;
 
     &.send {
       background: #e2f7da;
@@ -34,9 +33,7 @@
 
     &.selected {
       background: rgb(56, 121, 217) !important;
-      a {
-        color: white;
-      }
+      color: white;
     }
   }
 }
