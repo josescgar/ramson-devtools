@@ -11,7 +11,10 @@ chrome.runtime.onConnect.addListener(devToolsConnection => {
         switch (message.type) {
             case 'init-conn':
                 listeningToTabId = message.tabId;
-                connections[listeningToTabId] = devToolsConnection;
+                connections[listeningToTabId] = {recording: false, connection: devToolsConnection};
+                break;
+            case 'recording-status':
+                connections[message.tabId].recording = message.payload || false;
                 break;
         }
     };
@@ -28,7 +31,8 @@ chrome.runtime.onConnect.addListener(devToolsConnection => {
  * to any interested devtools page
  */
 chrome.runtime.onMessage.addListener((request, sender) => {
-    if (connections[sender.tab.id]) {
-        connections[sender.tab.id].postMessage(request);
+    let conn = connections[sender.tab.id];
+    if (conn && conn.recording) {
+        conn.connection.postMessage(request);
     }
 });

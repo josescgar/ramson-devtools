@@ -18,7 +18,8 @@ module.exports = {
         loaders: [
             { test: /\.jsx?$/, exclude: /node_modules/, loader: 'babel-loader' },
             { test: /\.less$/, exclude: /node_modules/, loader: 'style-loader!css-loader!less-loader'},
-            { test: /\.css$/, exclude: /node_modules/, loader: 'style-loader!css-loader'}
+            { test: /\.css$/, exclude: /node_modules/, loader: 'style-loader!css-loader'},
+            { test: /\.(png|jpg)$/, exclude: /node_modules/, loader: 'file-loader?name=[name].[ext]&publicPath=img/&outputPath=/img/'}
         ]
     },
 

@@ -25,7 +25,8 @@ export default class App extends React.Component {
             detail: null,
             filters: {
                 selectedSource: '',
-                group: false
+                group: false,
+                recording: false
             }
         };
     }
@@ -103,8 +104,16 @@ export default class App extends React.Component {
         this.setState({messages: this.state.messages});
     }
 
+    changeRecordingStatus(shouldRecord) {
+        BackgroundMessenger.sendToBackgroundFromDevtools(Messages.MESSAGE_RECORDING_STATUS, shouldRecord);
+    }
+
     onFiltersChange(filters) {
         let newFilters = Object.assign({}, this.state.filters, filters);
+        if (filters.recording !== this.state.recording) {
+            this.changeRecordingStatus(filters.recording);
+        }
+
         this.setState({filters: newFilters, detail: null});
     }
 

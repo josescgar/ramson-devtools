@@ -3,6 +3,7 @@ import JSONTree from 'react-json-tree';
 import moment from 'moment';
 
 import css from './detail.less';
+import closeImg from '../../../img/glyphicons-208-remove.png';
 
 const TAB_RAW = 'raw';
 const TAB_JSON = 'json';
@@ -53,7 +54,7 @@ export default class DetailPanel extends React.Component {
 
     generateDetailOptions() {
         let options = [];
-        options.push(<span key="close" className="close" onClick={this.props.closeDetail}>x</span>);
+        options.push(<img key="close" src={closeImg} className="icon close" onClick={this.props.closeDetail} />);
         options.push(<a key="raw" href="#" className={this.state.selectedTab === TAB_RAW ? 'selected' : ''} onClick={this.onRawTabSelected}>Raw</a>);
         if (this.props.message && this.props.message.json) {
             options.push(<a key="json" href="#" className={this.state.selectedTab === TAB_JSON ? 'selected' : ''} onClick={this.onJsonTabSelected}>JSON</a>);
