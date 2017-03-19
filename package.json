@@ -5,8 +5,7 @@
   "main": "devtools.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist/ && ./node_modules/.bin/webpack",
-    "ship": "NODE_ENV=production npm run build",
+    "build": "./node_modules/.bin/cross-env NODE_ENV=production ./node_modules/.bin/webpack",
     "watch": "./node_modules/.bin/webpack --watch"
   },
   "devDependencies": {
@@ -16,6 +15,7 @@
     "babel-preset-react": "^6.23.0",
     "classnames": "^2.2.5",
     "copy-webpack-plugin": "^4.0.1",
+    "cross-env": "^3.2.4",
     "css-loader": "^0.26.1",
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.28.0",

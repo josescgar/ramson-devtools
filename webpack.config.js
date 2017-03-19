@@ -1,5 +1,45 @@
+const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const isProduction = process.env.NODE_ENV === 'production';
+
+plugins = [
+    new HtmlWebpackPlugin({
+        template: './src/app/app.html',
+        filename: 'app.html',
+        chunks: ['app']
+    }),
+    new CopyWebpackPlugin([
+        {from: 'manifest.json'},
+        {from: 'src/wiring/*.html', flatten: true}
+    ])
+];
+
+if (isProduction) {
+    plugins.push(new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false
+    }));
+
+    plugins.push(new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false,
+            screw_ie8: true,
+            conditionals: true,
+            unused: true,
+            comparisons: true,
+            sequences: true,
+            dead_code: true,
+            evaluate: true,
+            if_return: true,
+            join_vars: true
+        },
+        output: {
+            comments: false
+        }
+    }));
+}
 
 module.exports = {
     entry: {
@@ -23,15 +63,5 @@ module.exports = {
         ]
     },
 
-    plugins: [
-        new HtmlWebpackPlugin({
-            template: './src/app/app.html',
-            filename: 'app.html',
-            chunks: ['app']
-        }),
-        new CopyWebpackPlugin([
-            {from: 'manifest.json'},
-            {from: 'src/wiring/*.html', flatten: true}
-        ])
-    ]
+    plugins: plugins
 };
