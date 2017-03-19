@@ -1,8 +1,7 @@
 # Ramson devtools
-Advanced Websocket filtering for Chrome Devtools. Add extra powers for filtering Websockets connections:
+Advanced Websocket filtering for Chrome Devtools. Add extra powers for filtering Websockets connections.
 
 - Group by request/response (if the payload is JSON and has an `id` property identifying the messages)
-- Filter by the content of the messages
 
 Developed with React
 
