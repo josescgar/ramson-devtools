@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import Messages from '../../constants/Messages';
 import Frame from './Frame.jsx';
 
@@ -12,6 +13,8 @@ export default class FramesPanel extends React.Component {
     constructor(props) {
         super(props);
         this.handleKeyDown = this.handleKeyDown.bind(this);
+        this.onFramesScroll = this.onFramesScroll.bind(this);
+        this.glueScroll = true;
     }
 
     componentDidMount() {
@@ -20,6 +23,12 @@ export default class FramesPanel extends React.Component {
 
     componentWillUnmount() {
         document.body.removeEventListener('keydown', this.handleKeyDown);
+    }
+
+    componentDidUpdate() {
+        if (this.glueScroll && this.framesListRef) {
+            this.framesListRef.scrollTop = this.framesListRef.scrollHeight - this.framesListRef.offsetHeight;
+        }
     }
 
     render() {
@@ -57,17 +66,30 @@ export default class FramesPanel extends React.Component {
             }
         });
 
+        let framesClasses = classNames({
+            'fullh': true,
+            'frames': true,
+            'no-detail': !this.props.selected
+        });
 
         return (
-            <div className="panel">
-                <ul>
-                    {messages}
-                </ul>
+            <div className={framesClasses} onScroll={this.onFramesScroll} ref={el => this.framesListRef = el}>
+                <div className="panel">
+                    <ul>
+                        {messages}
+                    </ul>
+                </div>
             </div>
         );
     }
+    
+    onFramesScroll(event) {
+        let isBottom = (event.target.scrollHeight - event.target.scrollTop) === event.target.offsetHeight;
+        this.glueScroll = isBottom;
+    }
 
     handleKeyDown(event) {
+        
         if (this.selectedIndex === -1 || [KEY_UP, KEY_DOWN].indexOf(event.keyCode) === -1) {
             return;
         }

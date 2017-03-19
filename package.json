@@ -1,6 +1,6 @@
 {
   "name": "ramson-devtools",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "Ramson Websocket Debugger",
   "main": "devtools.js",
   "scripts": {

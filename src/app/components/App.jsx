@@ -1,7 +1,6 @@
 import React from 'react';
 import BackgroundMessenger from '../services/BackgroundMessenger';
 import Messages from '../constants/Messages';
-import classNames from 'classnames';
 import moment from 'moment';
 
 import FilterBar from './filter/FilterBar.jsx';
@@ -41,12 +40,6 @@ export default class App extends React.Component {
         let frames = this.state.messages[this.state.filters.selectedSource] || [];
         let groupings = this.state.groupings[this.state.filters.selectedSource] || {};
 
-        let framesClasses = classNames({
-            'fullh': true,
-            'frames': true,
-            'no-detail': !this.state.detail
-        });
-
         let detail = null;
         if (this.state.detail) {
             detail = (
@@ -69,14 +62,13 @@ export default class App extends React.Component {
                         />
                 </div>
                 <div className="content fullh">
-                    <div className={framesClasses}>
-                        <FramesPanel 
-                            frames={frames} 
-                            groupings={groupings} 
-                            showGrouped={this.state.filters.group} 
-                            onFrameSelected={this.onFrameSelected} 
-                            selected={this.state.detail}/>
-                    </div>
+                    <FramesPanel 
+                        frames={frames} 
+                        groupings={groupings} 
+                        showGrouped={this.state.filters.group} 
+                        onFrameSelected={this.onFrameSelected} 
+                        selected={this.state.detail}/>
+                        
                     {detail}
                 </div>
             </div>
