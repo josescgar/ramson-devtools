@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
@@ -50,7 +51,7 @@ module.exports = {
         app: './src/app/app.jsx'
     },
     output: {
-        path: 'dist',
+        path: path.join(__dirname, 'dist'),
         filename: '[name].js'
     },
 
